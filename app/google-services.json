@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "195533916574",
+    "project_id": "jpsaccount-bd207",
+    "storage_bucket": "jpsaccount-bd207.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195533916574:android:9d9749d23b90ab8524ae8f",
+        "android_client_info": {
+          "package_name": "com.example.jps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195533916574-r54m832u0n8f83b4p62atjfaqedrllkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9ZAU5eRWIxFXk6PyXQqCL1GZ6VLeonbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195533916574-r54m832u0n8f83b4p62atjfaqedrllkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Log_inActivity">
+
+
+    <!--    상단-->
+    <ImageView
+        android:id="@+id/imageLogIn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/log_in_img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--하단버튼-->
+    <Button
+        android:id="@+id/btn_setting"
+        android:layout_width="61dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/setting"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_goto_signup" />
+
+    <Button
+        android:id="@+id/btn_home"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/home"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
+
+
+    <Button
+        android:id="@+id/btn_scrap"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/scrap"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/btn_apply"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/apply"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/btn_log_in"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/log_in"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <!--    회원가입 관련 요소들-->
+
+
+    <EditText
+        android:id="@+id/check_email"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="332dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:hint="email 입력"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/check_password"
+        app:layout_constraintStart_toStartOf="@+id/check_password"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/check_password"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="383dp"
+        android:ems="10"
+        android:hint="비밀번호 입력"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/btn_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/check_email" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="506dp"
+        android:layout_marginBottom="275dp"
+        android:background="#00ff0000"
+        android:text="로그인                       "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_scrap"
+        app:layout_constraintStart_toStartOf="@+id/check_password"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_goto_signup"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="641dp"
+        android:layout_marginBottom="140dp"
+        android:text="회원가입"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_setting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

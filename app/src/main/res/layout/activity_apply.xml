@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ApplyActivity">
+
+    <!--    상단-->
+    <ImageView
+        android:id="@+id/imageApply"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/basic_img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="지원 공고"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--하단버튼-->
+    <Button
+        android:id="@+id/btn_setting"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/setting"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_home"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/home"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <Button
+        android:id="@+id/btn_scrap"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/scrap"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <Button
+        android:id="@+id/btn_apply"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/apply"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <Button
+        android:id="@+id/btn_log_in"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00ff0000"
+        android:drawableTop="@drawable/log_in"
+        android:importantForAccessibility="no"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
