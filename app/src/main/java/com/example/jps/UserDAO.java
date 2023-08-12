@@ -22,7 +22,14 @@ public interface UserDAO {
 
 
     @Query("SELECT * FROM User")// sql문(다방면으로 활용가능, 이것은 전체조회 기능)
-
     List<User> getUserAll();
+
+    @Query("SELECT * FROM User LIMIT 1")
+    User getFirstUser();
+
+
+    @Query("SELECT * FROM USER WHERE employment_type = :job_type") //
+    List<User> findByJobType(String job_type);
+
 
 }

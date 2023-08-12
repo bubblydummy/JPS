@@ -2,8 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +18,18 @@
         android:theme="@style/Theme.JPS"
         tools:targetApi="31">
         <activity
-            android:name=".Sing_upActivity"
+            android:name=".GoogleMapActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBJNs8XHHj_U1aQSp_ZcKRd9UJMezDVjww" />
+
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Sign_upActivity"
             android:exported="false" />
         <activity
             android:name=".Log_inActivity"
@@ -36,6 +52,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="0da31f3e4652267736d935d54d0fdc60" />
+        <!--        value에 네이티브 앱 값 넣기-->
+
+
     </application>
 
 </manifest>
