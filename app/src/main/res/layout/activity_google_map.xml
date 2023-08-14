@@ -64,8 +64,17 @@
         android:layout_marginLeft="230dp"
         android:layout_marginTop="730dp"
         android:textSize="8dp"
-        android:hint="txt2"
+
         />
+
+
+    <Button
+        android:id="@+id/btn_find"
+        android:text="길찾기"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="755dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>
