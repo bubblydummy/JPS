@@ -39,9 +39,11 @@ dependencies {
     implementation 'androidx.room:room-common:2.5.2'
     implementation 'androidx.room:room-runtime:2.5.2'
 
-
+//파이어베이스
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     implementation 'com.google.firebase:firebase-database:20.1.0'
+
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -52,10 +54,14 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:2.3.1"
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
-
+//----------------<카카오맵 api관련 기능1>
     implementation files('libs/libDaumMapAndroid.jar')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+//    지오코딩
+    implementation 'com.google.code.geocoder-java:geocoder-java:0.16'
+    implementation 'com.google.maps:google-maps-services:0.15.0'
+
 
 
 }
