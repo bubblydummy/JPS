@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="circleStrokeColor">#1A0000FF</color> <!-- 연한파란색 -->
+    <color name="circleStrokeColor">#1A0000FF</color> <!-- 투명도 10% 파란색 -->
 
 
     <color name="purple_500">#FF6200EE</color>

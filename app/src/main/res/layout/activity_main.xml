@@ -9,18 +9,6 @@
 
     <!--입력 부분-->
 
-    <ImageView
-        android:id="@+id/imageMain"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/main_img"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
     <EditText
         android:id="@+id/et_job"
         android:layout_width="220dp"
@@ -80,39 +68,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="320dp"
         android:layout_marginEnd="39dp"
 
         android:text="근무지역"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/et_region"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageMain" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.141" />
+
+
+    <!--    로그아웃버튼-->
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="432dp"
         android:layout_marginEnd="39dp"
 
+        android:layout_marginBottom="432dp"
         android:text="고용형태"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/et_region"
-        app:layout_constraintHorizontal_bias="0.644"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageMain" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-
-    <!--    로그아웃버튼-->
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="87dp"
-        android:layout_marginBottom="756dp"
         android:text="로그아웃"
-        app:layout_constraintBottom_toBottomOf="@+id/imageMain"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

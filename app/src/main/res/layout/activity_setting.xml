@@ -7,11 +7,7 @@
     tools:context=".SettingActivity">
 
     <!--    상단-->
-     <ImageView
-         android:id="@+id/imageSetting"
-         android:src="@drawable/basic_img"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"/>
+
 
     <TextView
         android:id="@+id/textView4"
