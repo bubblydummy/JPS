@@ -3,20 +3,35 @@ package com.example.jps;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import kotlinx.coroutines.Dispatchers;
@@ -25,9 +40,17 @@ import kotlinx.coroutines.GlobalScope;
 public class SearchActivity extends AppCompatActivity {
 
 //    //----------<Firebase , Room db관련 변수 초기화>
-    private FirebaseAuth mFirebaseAuth;
+
     private UserDAO mUserDao;
     private TextView resultTextView;
+
+
+    //---------------<리사이클러 뷰 초기화
+    private RecyclerView recyclerView;
+    private JobAdapter jobAdapter;
+
+    //ViewHodler에서 현재 컨텍스트를 받아오기 위한 변수
+    public static Context mContext;
 
 
 
@@ -37,70 +60,18 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        mContext=this;
+
+
+//---------------<리사이클러뷰 연결과 csv파일 읽기>
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Start AsyncTask to read CSV file
+        new ReadCSVFileTask().execute("장애인구직정보_전처리.csv");
 
 
 
-//-------------------<비동기 처리를 위해 추가한부분 제대로 동작하지 않음>---------
-//        resultTextView = findViewById(R.id.resultTextView);
-//        ViewModel myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
-//
-//        // LiveData를 관찰하고, 데이터가 변경되면 UI에 자동으로 반영됩니다.
-//        ((MyViewModel) myViewModel).getDbResultLiveData().observe(this, result -> {
-//            // DB 작업 결과를 UI에 반영합니다.
-//            resultTextView.setText(result);
-//        });
-//
-//        // 백그라운드에서 DB 작업 실행
-//        ((MyViewModel) myViewModel).performDbOperationInBackground();
-
-
-//-------------------<데이터 베이스 가져오는 부분 제대로 동작하지 않음>---------
-//        UserDatabase database = Room.databaseBuilder(this, UserDatabase.class, "mycsv_db")
-//                .allowMainThreadQueries()
-//                .createFromAsset("database/mycsv.db")
-//                .build();
-//
-//
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-
-
-
-
-//--------<전송된 데이터 받아서 추출>
-
-        Intent intent=getIntent();
-        if(intent!=null){
-            String data_job= intent.getStringExtra("data_job");
-            String data_region= intent.getStringExtra("data_region");
-            String data_job_type= intent.getStringExtra("data_job_type");
-
-            Toast.makeText(SearchActivity.this,data_job + data_region + data_job_type,Toast.LENGTH_SHORT).show();
-
-
-        }
-
-
-
-
-
-//------------<로그아웃버튼>
-
-        mFirebaseAuth= FirebaseAuth.getInstance();// Firebase 관련 초기화
-
-        Button btn_logout=findViewById(R.id.btn_logout);
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //로그아웃 버튼 클릭시 로그아웃
-                mFirebaseAuth.signOut();
-                //mFirebaseAuth.getCurrentUser().delete();//탈퇴 처리
-            }
-
-        });
 //---------------<홈버튼>
         Button BtH=findViewById(R.id.btn_home);
         BtH.setOnClickListener(new View.OnClickListener() {
@@ -168,8 +139,226 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
+
+
+    private class ReadCSVFileTask extends AsyncTask<String, Void, List<JobData>> {
+
+        @Override
+        protected List<JobData> doInBackground(String... filenames) {
+            List<JobData> jobDataList = new ArrayList<>();
+            try {
+                InputStreamReader inputStreamReader = new InputStreamReader(getAssets().open(filenames[0]), "UTF-8");
+                CSVReader csvReader = new CSVReader(inputStreamReader);
+
+                String[] nextLine;
+
+                // 첫 번째 행(헤더) 읽고 무시
+                try {
+                    csvReader.readNext();
+                } catch (CsvValidationException e) {
+                    e.printStackTrace();
+                }
+
+                // 이후 행들 읽기
+                try {
+                    while ((nextLine = csvReader.readNext()) != null) {
+                        JobData jobData = new JobData(nextLine);
+                        jobDataList.add(jobData);
+                    }
+                } catch (CsvValidationException e) {
+                    e.printStackTrace();
+                }
+
+                csvReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return jobDataList;
+        }
+
+        @Override
+        protected void onPostExecute(List<JobData> jobDataList) {
+            jobAdapter = new JobAdapter(jobDataList);
+            recyclerView.setAdapter(jobAdapter);
+
+
+        }
+    }
+
+    private List<String[]> readCSVFileFromAssets(String fileName) throws IOException {
+        List<String[]> data = new ArrayList<>();
+
+        InputStreamReader inputStreamReader = new InputStreamReader(getAssets().open(fileName), "UTF-8");
+        CSVReader csvReader = new CSVReader(inputStreamReader);
+
+        String[] nextLine;
+
+        // 첫 번째 행(헤더) 읽고 무시
+        try {
+            csvReader.readNext();
+        } catch (CsvValidationException e) {
+            e.printStackTrace();
+        }
+
+        // 이후 행들 읽기
+        try {
+            while ((nextLine = csvReader.readNext()) != null) {
+                data.add(nextLine);
+            }
+        } catch (CsvValidationException e) {
+            e.printStackTrace();
+        }
+
+        csvReader.close();
+
+        return data;
+    }
+    class JobViewHolder extends RecyclerView.ViewHolder {
+        TextView textView1, textView2, textView3, textView4, textView5, textView6;
+        CheckBox checkBox;
+        JobViewHolder(View itemView) {
+            super(itemView);
+            textView1 = itemView.findViewById(R.id.textView1);
+            textView2 = itemView.findViewById(R.id.textView2);
+            textView3 = itemView.findViewById(R.id.textView3);
+            textView4 = itemView.findViewById(R.id.textView4);
+            textView5 = itemView.findViewById(R.id.textView5);
+            textView6 = itemView.findViewById(R.id.textView6);
+            checkBox = itemView.findViewById(R.id.checkBox);
+        }
+    }
+    public static class JobData {
+        private String[] data;
+        private boolean isChecked;
+
+        // static 변수로 체크된 아이템들을 저장할 리스트 추가
+        public static List<JobData> checkedItems = new ArrayList<>();
+
+        public JobData(String[] data) {
+            this.data = data;
+        }
+
+        public String[] getData() {
+            return data;
+        }
+
+        public boolean isChecked() {
+            return isChecked;
+        }
+
+        public void setChecked(boolean checked, String[] row) {
+
+
+            if (checked && !this.isChecked) {
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    // 로그인되어 있을 때만 아이템을 체크리스트에 추가하기
+                    checkedItems.add(this);
+
+                    // Firebase Realtime Database에 정보 추가
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("JPS");
+                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child(row[1])  // 예시로 회사명을 데이터베이스 노드 이름으로 사용
+                            .setValue(true);
+
+
+                } else {
+                    // 로그인되어 있지 않은 경우에는 체크 취소 처리
+                    this.isChecked = false;
+                    Toast.makeText(SearchActivity.mContext, "로그인이 필요한 작업입니다.", Toast.LENGTH_SHORT).show();
+
+                    // 로그인 화면으로 이동
+                    Intent intent = new Intent(SearchActivity.mContext, Log_inActivity.class);
+                    SearchActivity.mContext.startActivity(intent);
+
+
+                }
+
+
+            } else if (!checked && this.isChecked) {
+                // 아이템을 체크 리스트에서 삭제한뒤
+                checkedItems.remove(this);
+
+
+
+                // Firebase Realtime Database에 정보 삭제
+                checkedItems.remove(this);
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("checkedJobs");
+                databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(data[0])  // 예시로 회사명을 데이터베이스 노드 이름으로 사용
+                        .removeValue();
+            }
+            this.isChecked = checked;
+        }
+
+        // static 메서드로 체크된 아이템 리스트를 얻는 메서드 추가
+        public static List<JobData> getCheckedItems() {
+            return checkedItems;
+        }
+    }
+
+    class JobAdapter extends RecyclerView.Adapter<JobViewHolder> {
+        private final List<JobData> jobDataList;
+        private SparseBooleanArray checkboxStatus = new SparseBooleanArray();
+
+
+
+
+
+        JobAdapter(List<JobData> jobDataList) {
+            this.jobDataList = jobDataList;
+        }
+
+        @Override
+        public JobViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row, parent, false);
+            return new JobViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(JobViewHolder holder, int position) {            //postion 대신 holder.getAdapterPosition()을 사용했음!!
+            JobData job = jobDataList.get(holder.getAdapterPosition());
+            String[] row = job.getData();
+            holder.textView1.setText("회사명 : " + row[1]);
+            holder.textView2.setText("직종 업무 : " + row[2]);
+            holder.textView3.setText("계약 구분 : " + row[3]);
+            holder.textView4.setText("주소 : " + row[11]);
+            holder.textView5.setText("시작일자 : " + row[20]);
+            holder.textView6.setText("마감일자 : " + row[21]);
+
+
+
+            //체크박스설정
+
+            holder.checkBox.setChecked(checkboxStatus.get(holder.getAdapterPosition()));
+
+
+            //스크롤 시에도 체크박스 유지
+            holder.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!holder.checkBox.isChecked())
+                        checkboxStatus.put(holder.getAdapterPosition(), false);
+                    else
+                        checkboxStatus.put(holder.getAdapterPosition(), true);
+                    notifyItemChanged(holder.getAdapterPosition());
+                }
+            });
+
+
+            //체크박스 변경 감지
+
+            holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> job.setChecked(isChecked,row ));
+        }
+
+        @Override
+        public int getItemCount() {
+            return jobDataList.size();
+        }
+    }
+
+
+
+
 }
