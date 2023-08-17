@@ -56,6 +56,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -233,6 +234,9 @@ public class SearchActivity extends AppCompatActivity {
         private String[] data;
         private boolean isChecked;
 
+
+
+
         // static 변수로 체크된 아이템들을 저장할 리스트 추가
         public static List<JobData> checkedItems = new ArrayList<>();
 
@@ -251,16 +255,19 @@ public class SearchActivity extends AppCompatActivity {
         public void setChecked(boolean checked, String[] row) {
 
 
+
             if (checked && !this.isChecked) {
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     // 로그인되어 있을 때만 아이템을 체크리스트에 추가하기
                     checkedItems.add(this);
 
+
+
                     // Firebase Realtime Database에 정보 추가
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("JPS");
                     databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child(row[1])  // 예시로 회사명을 데이터베이스 노드 이름으로 사용
-                            .setValue(true);
+                            .setValue(new ScrapModel(row[1], row[2],row[11]));
 
 
                 } else {
@@ -284,9 +291,9 @@ public class SearchActivity extends AppCompatActivity {
 
                 // Firebase Realtime Database에 정보 삭제
                 checkedItems.remove(this);
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("checkedJobs");
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("JPS");
                 databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child(data[0])  // 예시로 회사명을 데이터베이스 노드 이름으로 사용
+                        .child(row[1])  // 예시로 회사명을 데이터베이스 노드 이름으로 사용
                         .removeValue();
             }
             this.isChecked = checked;
@@ -320,6 +327,8 @@ public class SearchActivity extends AppCompatActivity {
         public void onBindViewHolder(JobViewHolder holder, int position) {            //postion 대신 holder.getAdapterPosition()을 사용했음!!
             JobData job = jobDataList.get(holder.getAdapterPosition());
             String[] row = job.getData();
+            int i=1;
+
             holder.textView1.setText("회사명 : " + row[1]);
             holder.textView2.setText("직종 업무 : " + row[2]);
             holder.textView3.setText("계약 구분 : " + row[3]);
@@ -330,21 +339,19 @@ public class SearchActivity extends AppCompatActivity {
 
 
             //체크박스설정
-
-            holder.checkBox.setChecked(checkboxStatus.get(holder.getAdapterPosition()));
-
+            //holder.checkBox.setChecked(checkboxStatus.get(holder.getAdapterPosition()));
 
             //스크롤 시에도 체크박스 유지
-            holder.checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!holder.checkBox.isChecked())
-                        checkboxStatus.put(holder.getAdapterPosition(), false);
-                    else
-                        checkboxStatus.put(holder.getAdapterPosition(), true);
-                    notifyItemChanged(holder.getAdapterPosition());
-                }
-            });
+//            holder.checkBox.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (!holder.checkBox.isChecked())
+//                        checkboxStatus.put(holder.getAdapterPosition(), false);
+//                    else
+//                        checkboxStatus.put(holder.getAdapterPosition(), true);
+//                    //notifyItemChanged(holder.getAdapterPosition());
+//                }
+//            });
 
 
             //체크박스 변경 감지
