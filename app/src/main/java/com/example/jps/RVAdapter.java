@@ -64,7 +64,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
             company_name.setText(item.getCompanyName());
             job_position.setText(item.getJobPosition());
-            address.setText(item.getAddress());
+            //address.setText(item.getAddress());
         }
     }
 }

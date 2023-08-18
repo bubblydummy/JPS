@@ -8,6 +8,29 @@
 
 <!--    상단-->
 
+    <Button
+        android:id="@+id/btn_pos"
+        android:layout_width="61dp"
+        android:layout_margin="8dp"
+        android:layout_height="61dp"
+        android:background="#00ff0000"
+        android:text="버튼 텍스트"
+        android:textColor="@android:color/transparent"
+        android:drawableTop="@drawable/my_pos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="내 위치정보 가져오기"
+        android:textSize="13dp"
+
+        app:layout_constraintEnd_toStartOf="@+id/btn_pos"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -125,5 +148,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

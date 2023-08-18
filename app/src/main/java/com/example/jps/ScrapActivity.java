@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +39,7 @@ public class ScrapActivity extends AppCompatActivity {
         RVAdapter rvAdapter = new RVAdapter(this, scrapModelList);
         recyclerView.setAdapter(rvAdapter);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("JPS");
 
@@ -57,6 +59,11 @@ public class ScrapActivity extends AppCompatActivity {
                         Log.e("firebase", "Error reading data", databaseError.toException());
                     }
                 });
+
+
+
+
+
     }
 }
 

@@ -34,9 +34,6 @@
 
 
 
-
-
-
     <Button
         android:id="@+id/btn_kakaomap"
         android:layout_width="wrap_content"
@@ -50,19 +47,23 @@
         android:text="카카오맵" />
 
 
-
-
-
 <!--    <Button-->
-<!--        android:id="@+id/btn_kakaomap"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/btn_bookmark"-->
+<!--        android:layout_width="61dp"-->
+<!--        android:layout_height="61dp"-->
 <!--        android:layout_below="@id/address"-->
 <!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginTop="0dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:background="#DA9C27B0"-->
-<!--        android:text="카카오맵" />-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_marginEnd="110dp"-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--        android:background="#00ff0000"-->
+<!--        android:drawableTop="@drawable/bookmark_x"-->
+<!--        android:text="버튼 텍스트"-->
+<!--        android:textColor="@android:color/transparent" />-->
+
+
+
 
 
 </RelativeLayout>
