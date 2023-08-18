@@ -1,19 +1,14 @@
 package com.example.jps;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,9 +28,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlinx.coroutines.Dispatchers;
-import kotlinx.coroutines.GlobalScope;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -57,6 +49,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +57,15 @@ public class SearchActivity extends AppCompatActivity {
         mContext=this;
 
 
+
+
 //---------------<리사이클러뷰 연결과 csv파일 읽기>
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.rv_scrap);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
 
         // Start AsyncTask to read CSV file
         new ReadCSVFileTask().execute("장애인구직정보_전처리.csv");
@@ -221,9 +220,9 @@ public class SearchActivity extends AppCompatActivity {
         CheckBox checkBox;
         JobViewHolder(View itemView) {
             super(itemView);
-            textView1 = itemView.findViewById(R.id.textView1);
-            textView2 = itemView.findViewById(R.id.textView2);
-            textView3 = itemView.findViewById(R.id.textView3);
+            textView1 = itemView.findViewById(R.id.company_name);
+            textView2 = itemView.findViewById(R.id.job_position);
+            textView3 = itemView.findViewById(R.id.address);
             textView4 = itemView.findViewById(R.id.textView4);
             textView5 = itemView.findViewById(R.id.textView5);
             textView6 = itemView.findViewById(R.id.textView6);

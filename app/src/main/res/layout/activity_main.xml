@@ -30,7 +30,7 @@
         android:hint="희망 근무지를 입력하세요"
         android:textSize="9sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/job_position"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -43,7 +43,7 @@
         android:hint="고용형태를 입력하시오"
         android:textSize="9sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/address"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -64,7 +64,7 @@
         app:layout_constraintVertical_bias="0.254" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/job_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
@@ -81,7 +81,7 @@
     <!--    로그아웃버튼-->
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"

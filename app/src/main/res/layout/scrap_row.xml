@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/company_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/gmarket_bold"
@@ -15,34 +15,54 @@
         tools:text="Text 1" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/job_position"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/company_name"
         android:fontFamily="@font/gmarket_light"
         android:textSize="16sp"
         tools:text="Text 2" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/job_position"
         android:fontFamily="@font/gmarket_light"
         android:textSize="16sp"
         tools:text="Text 3" />
 
 
+
+
+
+
     <Button
-        android:id="@+id/detailButton"
+        android:id="@+id/btn_kakaomap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView3"
+        android:layout_below="@id/address"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="8dp"
-        android:background="#DA9C27B0"
-        android:text="구글맵으로" />
+        android:layout_margin="8dp"
+        android:background="@drawable/button_round"
+        android:text="카카오맵" />
+
+
+
+
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_kakaomap"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/address"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginTop="0dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:background="#DA9C27B0"-->
+<!--        android:text="카카오맵" />-->
 
 
 </RelativeLayout>
