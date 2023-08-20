@@ -193,7 +193,7 @@ public class GoogleMapActivity extends AppCompatActivity {
 
 
 
-        //내위치와 도착지 정보가 찾아지면 길찾기(도보용)
+        //내위치와 도착지 정보가 찾아지면 길찾기(대중교통용)
         btn_find=(Button)findViewById(R.id.btn_find);
         btn_find.setOnClickListener(v -> {
 
@@ -202,7 +202,7 @@ public class GoogleMapActivity extends AppCompatActivity {
 
                 String uri = "kakaomap://route?sp=" + my_position.get(0) + "," + my_position.get(1) +
                     "&ep=" + destination.get(0) + "," + destination.get(1) +
-                    "&by=FOOT";
+                    "&by=TRANSIT";
                 Toast.makeText(getApplicationContext(), uri, Toast.LENGTH_SHORT).show();
                 showMap(Uri.parse(uri));
 
