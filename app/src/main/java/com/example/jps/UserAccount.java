@@ -1,7 +1,5 @@
 package com.example.jps;
-//사용자 계정 정보 모델 클래스
 
-//유저 클래스를 상속받아서 지원서 클래스를 관리할 것임( 예상 )
 public class UserAccount
 {
     private String idToken; // Firebase Uid(고유 토큰 정보)

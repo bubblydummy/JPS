@@ -1,131 +1,297 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity">
+    app:umanoPanelHeight="5dp"
+    app:umanoShadowHeight="4dp"
+    android:gravity="top"
+    app:umanoDragView="@+id/dragHandle">
 
-
-    <!-- Image to the right -->
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="43dp"
-        android:layout_height="51dp"
-        android:layout_marginLeft="312dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/logo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Handle for the user to drag -->
-    <View
-        android:id="@+id/dragHandle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:background="?android:attr/selectableItemBackground"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/imageView3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/imageView3" />
-    <ScrollView
+    <!-- Main Content -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:scrollbars="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_scrap"
+
+            <!--    하단버튼-->
+            <Button
+                android:id="@+id/btn_setting"
+                android:layout_width="61dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="1dp"
+                android:background="#00ff0000"
+                android:drawableTop="@drawable/setting"
+                android:importantForAccessibility="no"
+                android:text="버튼 텍스트"
+                android:textColor="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btn_home"
+                android:layout_width="61dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginBottom="1dp"
+                android:background="#00ff0000"
+                android:drawableTop="@drawable/home"
+                android:importantForAccessibility="no"
+                android:text="버튼 텍스트"
+                android:textColor="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintVertical_bias="1.0" />
+
+
+            <Button
+                android:id="@+id/btn_scrap"
+                android:layout_width="61dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="148dp"
+                android:layout_marginBottom="1dp"
+                android:background="#00ff0000"
+                android:drawableTop="@drawable/scrap"
+                android:importantForAccessibility="no"
+                android:text="버튼 텍스트"
+                android:textColor="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+
+            <Button
+                android:id="@+id/btn_apply"
+                android:layout_width="61dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="216dp"
+                android:layout_marginBottom="1dp"
+                android:background="#00ff0000"
+                android:drawableTop="@drawable/apply"
+                android:importantForAccessibility="no"
+                android:text="버튼 텍스트"
+                android:textColor="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+
+            <Button
+                android:id="@+id/btn_log_in"
+                android:layout_width="61dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="280dp"
+                android:layout_marginBottom="1dp"
+                android:background="#00ff0000"
+                android:drawableTop="@drawable/log_in"
+                android:importantForAccessibility="no"
+                android:text="버튼 텍스트"
+                android:textColor="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+        <!-- Image to the right -->
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="43dp"
+            android:layout_height="51dp"
+            android:layout_marginLeft="312dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Handle for the user to drag -->
+        <View
+            android:id="@+id/dragHandle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/imageView3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/imageView3" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="750dp"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="8dp">
 
-    </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-    <!--    하단버튼-->
-    <Button
-        android:id="@+id/btn_setting"
-        android:layout_width="61dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="1dp"
-        android:background="#00ff0000"
-        android:drawableTop="@drawable/setting"
-        android:importantForAccessibility="no"
-        android:text="버튼 텍스트"
-        android:textColor="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btn_home"
-        android:layout_width="61dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="1dp"
-        android:background="#00ff0000"
-        android:drawableTop="@drawable/home"
-        android:importantForAccessibility="no"
-        android:text="버튼 텍스트"
-        android:textColor="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintVertical_bias="1.0" />
-
-
-    <Button
-        android:id="@+id/btn_scrap"
-        android:layout_width="61dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginBottom="1dp"
-        android:background="#00ff0000"
-        android:drawableTop="@drawable/scrap"
-        android:importantForAccessibility="no"
-        android:text="버튼 텍스트"
-        android:textColor="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-
-    <Button
-        android:id="@+id/btn_apply"
-        android:layout_width="61dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="216dp"
-        android:layout_marginBottom="1dp"
-        android:background="#00ff0000"
-        android:drawableTop="@drawable/apply"
-        android:importantForAccessibility="no"
-        android:text="버튼 텍스트"
-        android:textColor="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-
-    <Button
-        android:id="@+id/btn_log_in"
-        android:layout_width="61dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginBottom="1dp"
-        android:background="#00ff0000"
-        android:drawableTop="@drawable/log_in"
-        android:importantForAccessibility="no"
-        android:text="버튼 텍스트"
-        android:textColor="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+    <!-- Slide Up Panel Content (Your search condition UI) -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- Search UI -->
+            <include layout="@layout/search"
+                android:id="@+id/searchLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <!-- You can add more UI elements if needed in this LinearLayout -->
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+
+
+
+
+
+
+
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".SearchActivity">-->
+
+
+<!--    &lt;!&ndash; Image to the right &ndash;&gt;-->
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView3"-->
+<!--        android:layout_width="43dp"-->
+<!--        android:layout_height="51dp"-->
+<!--        android:layout_marginLeft="312dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:src="@drawable/logo"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    &lt;!&ndash; Handle for the user to drag &ndash;&gt;-->
+<!--    <View-->
+<!--        android:id="@+id/dragHandle"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="?android:attr/selectableItemBackground"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/imageView3"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toLeftOf="@id/imageView3" />-->
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageView3"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:scrollbars="vertical">-->
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rv_scrap"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
+
+<!--    </ScrollView>-->
+
+
+
+
+
+<!--    &lt;!&ndash;    하단버튼&ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/btn_setting"-->
+<!--        android:layout_width="61dp"-->
+<!--        android:layout_height="61dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        android:background="#00ff0000"-->
+<!--        android:drawableTop="@drawable/setting"-->
+<!--        android:importantForAccessibility="no"-->
+<!--        android:text="버튼 텍스트"-->
+<!--        android:textColor="@android:color/transparent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_home"-->
+<!--        android:layout_width="61dp"-->
+<!--        android:layout_height="61dp"-->
+<!--        android:layout_marginStart="80dp"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        android:background="#00ff0000"-->
+<!--        android:drawableTop="@drawable/home"-->
+<!--        android:importantForAccessibility="no"-->
+<!--        android:text="버튼 텍스트"-->
+<!--        android:textColor="@android:color/transparent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_scrap"-->
+<!--        android:layout_width="61dp"-->
+<!--        android:layout_height="61dp"-->
+<!--        android:layout_marginStart="148dp"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        android:background="#00ff0000"-->
+<!--        android:drawableTop="@drawable/scrap"-->
+<!--        android:importantForAccessibility="no"-->
+<!--        android:text="버튼 텍스트"-->
+<!--        android:textColor="@android:color/transparent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_apply"-->
+<!--        android:layout_width="61dp"-->
+<!--        android:layout_height="61dp"-->
+<!--        android:layout_marginStart="216dp"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        android:background="#00ff0000"-->
+<!--        android:drawableTop="@drawable/apply"-->
+<!--        android:importantForAccessibility="no"-->
+<!--        android:text="버튼 텍스트"-->
+<!--        android:textColor="@android:color/transparent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_log_in"-->
+<!--        android:layout_width="61dp"-->
+<!--        android:layout_height="61dp"-->
+<!--        android:layout_marginStart="280dp"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        android:background="#00ff0000"-->
+<!--        android:drawableTop="@drawable/log_in"-->
+<!--        android:importantForAccessibility="no"-->
+<!--        android:text="버튼 텍스트"-->
+<!--        android:textColor="@android:color/transparent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

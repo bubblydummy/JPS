@@ -112,6 +112,13 @@ public class GoogleMapActivity extends AppCompatActivity {
 
         et_result = findViewById(R.id.et_result);
 
+
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("address");
+        etaddr.setText(message);
+
+
         //-----------------<도착지 정보를 지오코딩(주소를 위도와 경도로 변환)
         convertbtn.setOnClickListener(v -> {
             String addressInput = etaddr.getText().toString();

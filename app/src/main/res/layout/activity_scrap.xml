@@ -26,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="내 위치정보 가져오기"
-        android:textSize="13dp"
+        android:text="초기화"
+        android:textSize="16dp"
 
         app:layout_constraintEnd_toStartOf="@+id/btn_pos"
         app:layout_constraintTop_toTopOf="parent" />
