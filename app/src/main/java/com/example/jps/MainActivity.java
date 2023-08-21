@@ -69,6 +69,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        // ------------<홈버튼>
+        Button BtH=findViewById(R.id.btn_home);
+        BtH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 클릭 이벤트 발생시 실행되는 코드
+                // (A,B) -->A액티비티에서 B엑티비티로 전환
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 // ------------<세팅버튼>

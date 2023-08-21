@@ -65,7 +65,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("JPS");
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String itemId = itemList.get(position).getCompanyName(); // 해당 아이템의 식별자를 가져와야 함
+        String itemId = itemList.get(position).getJobPosition(); // 해당 아이템의 식별자를 가져와야 함
 
 
 

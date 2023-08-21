@@ -81,5 +81,65 @@ public class Sign_upActivity extends AppCompatActivity {
         });
 
 
+        // ------------<홈버튼>
+        Button BtH=findViewById(R.id.btn_home);
+        BtH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 클릭 이벤트 발생시 실행되는 코드
+                // (A,B) -->A액티비티에서 B엑티비티로 전환
+                Intent intent = new Intent(Sign_upActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        // ------------<스크랩버튼>
+        Button BtScrap=findViewById(R.id.btn_scrap);
+        BtScrap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 클릭 이벤트 발생시 실행되는 코드
+                // (A,B) -->A액티비티에서 B엑티비티로 전환
+                Intent intent = new Intent(Sign_upActivity.this, ScrapActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // ------------<지원서버튼>
+        Button BtApply=findViewById(R.id.btn_apply);
+        BtApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 클릭 이벤트 발생시 실행되는 코드
+                // (A,B) -->A액티비티에서 B엑티비티로 전환
+                Intent intent = new Intent(Sign_upActivity.this, ApplyActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // ------------<로그인버튼>
+        Button BtLogin=findViewById(R.id.btn_log_in);
+        BtLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 클릭 이벤트 발생시 실행되는 코드
+                // (A,B) -->A액티비티에서 B엑티비티로 전환
+                Intent intent = new Intent(Sign_upActivity.this, Log_inActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // ------------<세팅버튼>
+        Button BtSetting = findViewById(R.id.btn_setting);
+        BtSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 클릭 이벤트 발생시 실행되는 코드
+                // (A,B) -->A액티비티에서 B엑티비티로 전환
+                Intent intent = new Intent(Sign_upActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }
