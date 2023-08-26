@@ -86,6 +86,7 @@ public class DetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(DetailActivity.this, GoogleMapActivity.class);
 
                 intent.putExtra("address", jobdata.getData()[3]);
+                intent.putExtra("company",jobdata.getData()[0]);
                 startActivity(intent);
             }
         });

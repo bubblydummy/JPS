@@ -236,6 +236,7 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+
             dbHelper.addJob(allData); // 데이터베이스에 데이터 추가
             Cursor cursor = dbHelper.getAllJobs();
             jobAdapter = new JobAdapter(cursor);

@@ -6,12 +6,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -19,10 +22,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -37,20 +42,25 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
+import net.daum.mf.map.api.CalloutBalloonAdapter;
 import net.daum.mf.map.api.MapCircle;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class GoogleMapActivity extends AppCompatActivity {
+
+public class GoogleMapActivity extends AppCompatActivity  {
 
     private FragmentManager fragmentManager;
     private MapFragment mapFragment;
@@ -65,8 +75,11 @@ public class GoogleMapActivity extends AppCompatActivity {
     private TextView txt_result;
 
 
+
     //길찾기 정보
     private Button btn_find;
+
+
 
 
     //도착지, 내위치 정보 초기화
@@ -88,6 +101,9 @@ public class GoogleMapActivity extends AppCompatActivity {
         mapViewContainer.addView(mapView);
 
 
+
+        //------------<csv파일 읽기-비동기>-----
+        new GoogleMapActivity.ReadCSVFileTask().execute("boji_daegu.csv");
 
 
 
@@ -123,12 +139,17 @@ public class GoogleMapActivity extends AppCompatActivity {
         convertbtn.setOnClickListener(v -> {
             String addressInput = etaddr.getText().toString();
 
+            String companyInput= intent.getStringExtra("company");
+
             if (!addressInput.isEmpty()) {
                 destination = GeoCoding(addressInput);
 
                 //지도이동+ 마커 표시
                 moveCameraToLocation(mapView, destination.get(0), destination.get(1));
-                addMarker(mapView, destination.get(0), destination.get(1), addressInput);
+                addMarker(mapView, destination.get(0), destination.get(1),companyInput, addressInput);
+
+
+
 
                 // 원의 반경과 중심 좌표 설정
                 int circleRadius = 1000; // 원의 반경 (미터)
@@ -139,13 +160,40 @@ public class GoogleMapActivity extends AppCompatActivity {
                 circle = new MapCircle(centerMapPoint, circleRadius,circleStrokeColor,circleStrokeColor);
                 mapView.addCircle(circle);
 
+                double kmToDegrees = (1.0 / 111.0)/ Math.sqrt(2);
 
+
+                // 원의 반경 내에 있는 데이터베이스 정보를 가져와 출력
+                double minLat = destination.get(0) - kmToDegrees;
+                double maxLat = destination.get(0) + kmToDegrees;
+                double minLng = destination.get(1) -kmToDegrees / Math.cos(Math.toRadians(destination.get(0)));
+                double maxLng = destination.get(1) + kmToDegrees / Math.cos(Math.toRadians(destination.get(0)));
+
+
+
+
+                Log.d("Circle Range", "Min Latitude: " + minLat);
+                Log.d("Circle Range", "Max Latitude: " + maxLat);
+                Log.d("Circle Range", "Min Longitude: " + minLng);
+                Log.d("Circle Range", "Max Longitude: " + maxLng);
+
+
+                // BojiDao 인스턴스 생성
+                BojiDao bojiDao = BojiDatabase.getInstance(getApplicationContext()).bojiDao();
+
+                // 원의 반경 내에 있는 데이터베이스 정보를 쿼리//비동기처리 시켜야함
+                BojiAsyncTask bojiAsyncTask = new BojiAsyncTask(bojiDao, minLat, maxLat, minLng, maxLng,mapView);
+                bojiAsyncTask.execute();
 
 
             } else {
                 et_result.setText("정보를 입력하세요");
             }
         });
+
+
+
+
 
         btn_mypos = (Button)findViewById(R.id.btn_mypos);
         txt_result = (TextView)findViewById(R.id.txt_result);
@@ -193,6 +241,16 @@ public class GoogleMapActivity extends AppCompatActivity {
 
 
 
+
+
+        //다중 경유지 길찾기 시스템 개발 하여 카카오맵과 연동하기
+
+
+        //다중 출발지 길찾기
+
+        //다중 목적지 길찾기
+
+
         //내위치와 도착지 정보가 찾아지면 길찾기(대중교통용)
         btn_find=(Button)findViewById(R.id.btn_find);
         btn_find.setOnClickListener(v -> {
@@ -220,6 +278,62 @@ public class GoogleMapActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+
+    //비동기적으로 처리하는 DB 조회 함수
+
+    private class BojiAsyncTask extends AsyncTask<Void, Void, List<Boji>> {
+
+        private BojiDao bojiDao;
+        private double minLat;
+        private double maxLat;
+        private double minLng;
+        private double maxLng;
+
+        private List<Boji> dataListWithinCircle;
+
+        private MapView mapView;
+
+
+        public BojiAsyncTask(BojiDao bojiDao, double minLat, double maxLat, double minLng, double maxLng, MapView mapView) {
+            this.bojiDao = bojiDao;
+            this.minLat = minLat;
+            this.maxLat = maxLat;
+            this.minLng = minLng;
+            this.maxLng = maxLng;
+            this.mapView = mapView;
+
+        }
+
+        @Override
+        protected List<Boji> doInBackground(Void... voids) {
+
+
+            dataListWithinCircle = bojiDao.getBojiWithinCircle(minLat, maxLat, minLng, maxLng);
+
+            return dataListWithinCircle;
+
+
+        }
+
+        @Override
+        protected void onPostExecute(List<Boji> result) {
+            if (dataListWithinCircle != null) {
+
+                for (Boji boji : dataListWithinCircle) {
+                    Log.d("haha", "Facility Name: " + boji.facility_name + ", Category: " + boji.category);
+                    // Add markers to the map based on the boji data
+                    double latitude = Double.parseDouble(boji.LATITUDE);
+                    double longitude = Double.parseDouble(boji.LONGITUDE);
+                    String title = boji.facility_name;
+                    String snippet = boji.category;
+
+                    addMarker(mapView, latitude, longitude, title, snippet);
+                }
+            }
+        }
     }
 
     //-------<내 위치 찾기 함수>
@@ -293,14 +407,24 @@ public class GoogleMapActivity extends AppCompatActivity {
 
     //--------------<마커 추가 함수>
 
-    private void addMarker(MapView mapView, double latitude, double longitude, String title) {
+    private void addMarker(MapView mapView, double latitude, double longitude, String title,String snippet) {
+
 
         MapPOIItem marker = new MapPOIItem();
         marker.setItemName(title);
+        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
         marker.setTag(0);
         marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 마커 아이콘 설정
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+
+
+        mapView.addPOIItem(marker);
+
+        // 사용자 정의 정보 창 설정
+
+        mapView.setCalloutBalloonAdapter(new CustomBalloonAdapter(getLayoutInflater()));  // 커스텀 말풍선 등록
+
 
         mapView.addPOIItem(marker);
     }
@@ -321,6 +445,96 @@ public class GoogleMapActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+
+    private class ReadCSVFileTask extends AsyncTask<String, Void, Void> {
+        List<String[]> allData = new ArrayList<>();
+        @Override
+        protected Void doInBackground(String... filenames) {
+
+            try {
+                InputStreamReader inputStreamReader = new InputStreamReader(getAssets().open(filenames[0]), "UTF-8");
+                CSVReader csvReader = new CSVReader(inputStreamReader);
+
+                // 헤더 행 스킵
+                csvReader.readNext();
+
+                String[] nextLine;
+                while ((nextLine = csvReader.readNext()) != null) {
+                    allData.add(nextLine);
+                    Boji boji=new Boji();
+                    boji.facility_name=nextLine[0];
+                    boji.category=nextLine[1];
+                    boji.location=nextLine[2];
+                    boji.LATITUDE=nextLine[3];
+                    boji.LONGITUDE=nextLine[4];
+
+
+                    // Room 데이터베이스에 데이터 삽입
+                    BojiDatabase.getInstance(getApplicationContext()).bojiDao().insertBoji(boji);
+
+                }
+                csvReader.close();
+            } catch (IOException | CsvValidationException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Void aVoid) {
+
+            for (String[] rowData : allData) {
+                StringBuilder rowString = new StringBuilder();
+                for (String cell : rowData) {
+                    rowString.append(cell).append(", ");
+                }
+                Log.d("CSV Data", rowString.toString());
+            }
+
+        }
+    }
+
+    //room db 조회 비동기처리
+
+
+
+
+
+
+    // 커스텀 말풍선 클래스
+    class CustomBalloonAdapter implements CalloutBalloonAdapter {
+        private final View mCalloutBalloon;
+        private final TextView name;
+        private final TextView address;
+
+        public CustomBalloonAdapter(LayoutInflater inflater) {
+            mCalloutBalloon = inflater.inflate(R.layout.custom_info, null);
+            name = mCalloutBalloon.findViewById(R.id.txt_title);
+            address = mCalloutBalloon.findViewById(R.id.txt_addr);
+        }
+
+        @Override
+        public View getCalloutBalloon(MapPOIItem poiItem) {
+            // 마커 클릭 시 나오는 말풍선
+            name.setText(poiItem.getItemName());   // 해당 마커의 정보 이용 가능
+            Intent intent = getIntent();
+            String message = intent.getStringExtra("address");
+            address.setText(message);
+            return mCalloutBalloon;
+        }
+
+        @Override
+        public View getPressedCalloutBalloon(MapPOIItem poiItem) {
+            // 말풍선 클릭 시
+            return mCalloutBalloon;
+        }
+    }
+
+
+
+
+
 
 
 
