@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.app.AlertDialog;
@@ -133,6 +135,8 @@ public class GoogleMapActivity extends AppCompatActivity  {
         Intent intent = getIntent();
         String message = intent.getStringExtra("address");
         etaddr.setText(message);
+
+
 
 
         //-----------------<도착지 정보를 지오코딩(주소를 위도와 경도로 변환)
