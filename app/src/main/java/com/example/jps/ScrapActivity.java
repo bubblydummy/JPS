@@ -46,6 +46,7 @@ public class ScrapActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
+        //--------------<>
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("JPS");
 
         databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())

@@ -9,9 +9,10 @@
         android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="3dp"
+        android:layout_marginLeft="0dp"
         android:layout_marginTop="120dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginRight="0dp"
+
 
         android:layout_marginBottom="250dp"
         >
@@ -31,7 +32,6 @@
         android:layout_marginTop="10dp"
 
         android:gravity="center"
-
         android:layout_marginEnd="92dp"
         android:background="@drawable/button_round2"
         android:hint="회사명, 거리명 입력" />
@@ -95,6 +95,40 @@
     </HorizontalScrollView>
 
 
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="549dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/map_view"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_scrap2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#AA241B1B"
+        android:layout_marginTop="550dp"
+        android:elevation="1dp"
+        />
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#AA241B1B"
+        android:layout_marginTop="120dp"
+        android:elevation="1dp"
+        />
 
 
     <ImageView
