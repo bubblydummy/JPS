@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background = "@color/bground"
+    >
 
 
     <TextView
@@ -29,22 +31,25 @@
         app:layout_constraintTop_toBottomOf="@+id/text_name"
         app:srcCompat="@drawable/logo" />
 
+
     <TextView
         android:id="@+id/textView_1"
+        style="@drawable/rectangle_style"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
+        android:background="@drawable/rectangle_style"
         android:text="TextView"
         android:textAlignment="viewStart"
         android:textSize="16sp"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintHorizontal_bias="0.147"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/text_name"
         app:layout_constraintWidth_default="wrap" />
-
 
     <Button
         android:id="@+id/button"
@@ -52,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="지원하기"
+        app:cornerRadius="50dp"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/textView_1" />
 
@@ -59,8 +65,9 @@
         android:id="@+id/btn_kakaomap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
+        android:layout_marginStart="113dp"
         android:text="카카오맵"
+        app:cornerRadius="50dp"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/textView_1" />
 
@@ -70,7 +77,8 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/rectangle_style"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

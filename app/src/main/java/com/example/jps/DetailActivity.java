@@ -28,7 +28,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView TextView_1 = findViewById(R.id.textView_1);
         TextView_1.setText("직종 : " + jobdata.getData()[1]
                 + "\n" + "계약 구분 : " + jobdata.getData()[2]
-                + "\n" + "임금 : " + jobdata.getData()[9] + " " + jobdata.getData()[10]);
+                + "\n" + "임금 : " + jobdata.getData()[10] + " " + jobdata.getData()[11]);
 
         /*
         구인신청일자,사업장명,모집직종,고용형태,임금형태,임금,입사형태,
@@ -43,11 +43,11 @@ public class DetailActivity extends AppCompatActivity {
 
         // 기업 형태
         TextView TextView_type = findViewById(R.id.textView_type);
-        TextView_type.setText("기업 형태 : " + jobdata.getData()[11]);
+        TextView_type.setText("기업 형태 : " + jobdata.getData()[12]);
 
         // 연락처
         TextView TextView_phone = findViewById(R.id.textView_phone);
-        TextView_phone.setText("연락처 : " + jobdata.getData()[12]);
+        TextView_phone.setText("연락처 : " + jobdata.getData()[13]);
 
 
         // 요구 경력
@@ -60,7 +60,7 @@ public class DetailActivity extends AppCompatActivity {
 
         // 담당 기관
         TextView TextView_dam = findViewById(R.id.textView_damdang);
-        TextView_dam.setText("담당 기관 : " + jobdata.getData()[13]);
+        TextView_dam.setText("담당 기관 : " + jobdata.getData()[14]);
 
         // 인증
         TextView TextView_in = findViewById(R.id.textView_in);
@@ -68,7 +68,7 @@ public class DetailActivity extends AppCompatActivity {
 
         // 등급
         TextView TextView_rate = findViewById(R.id.textView_rate);
-        TextView_rate.setText("등급 : " + jobdata.getData()[14]);
+        TextView_rate.setText("등급 : " + jobdata.getData()[15]);
 
         // 시작-종료
         TextView TextView_startend = findViewById(R.id.textView_startend);

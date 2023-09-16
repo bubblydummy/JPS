@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/basic1"
     tools:context=".MainActivity">
 
 
@@ -57,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="183dp"
         android:text="검색"
+        android:background="@drawable/button_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.436"
