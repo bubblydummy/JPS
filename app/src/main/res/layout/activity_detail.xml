@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_ground">
+    android:background="@drawable/basic1">
 
 
     <TextView
@@ -184,21 +184,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/rectangle_style"
-
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView_title"
         app:layout_constraintTop_toBottomOf="@+id/textView_title">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:soundEffectsEnabled="true"
+            >
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="주소 " />
+                android:background="@drawable/rectangle_line"
+                android:padding = "4dp"
+                android:text="주소" />
 
             <TextView
                 android:id="@+id/textView_addr"
@@ -215,7 +218,9 @@
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="형태 " />
+                android:background="@drawable/rectangle_line"
+                android:text="형태"
+                android:padding = "4dp"/>
 
             <TextView
                 android:id="@+id/textView_type"
@@ -232,7 +237,9 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="연락처 " />
+                android:background="@drawable/rectangle_line"
+                android:text="연락처"
+                android:padding = "4dp"/>
 
             <TextView
                 android:id="@+id/textView_phone"
@@ -250,7 +257,9 @@
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="경력 " />
+                android:background="@drawable/rectangle_line"
+                android:text="경력"
+                android:padding = "4dp"/>
 
             <TextView
                 android:id="@+id/textView_carrer"
@@ -267,7 +276,9 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="학력 " />
+                android:background="@drawable/rectangle_line"
+                android:text="학력"
+                android:padding = "4dp"/>
 
             <TextView
                 android:id="@+id/textView_edu"
@@ -284,7 +295,9 @@
                 android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="일자 " />
+                android:background="@drawable/rectangle_line"
+                android:text="일자"
+                android:padding = "4dp"/>
 
             <TextView
                 android:id="@+id/textView_startend"
@@ -298,7 +311,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/rectangle_style"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView"
@@ -312,7 +325,9 @@
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="담당기관 " />
+                android:background="@drawable/rectangle_line"
+                android:text="담당기관"
+                android:padding = "4dp"/>
 
             <TextView
                 android:id="@+id/textView_damdang"
@@ -329,7 +344,9 @@
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="인증구분 " />
+                android:background="@drawable/rectangle_line"
+                android:text="인증구분"
+                android:padding = "4dp"/>
 
             <TextView
                 android:id="@+id/textView_in"
@@ -346,7 +363,9 @@
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="등급 " />
+                android:background="@drawable/rectangle_line"
+                android:text="등급"
+                android:padding = "4dp"/>
 
             <TextView
                 android:id="@+id/textView_rate"
