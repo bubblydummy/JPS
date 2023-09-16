@@ -9,37 +9,42 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="223dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="68dp"
-        android:gravity="center"
-        android:text="J.P.S"
-        android:textSize="40dp"
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="304dp"
+
+        android:layout_marginEnd="44dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/jpslogo" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="129dp"
         android:layout_height="131dp"
-        android:layout_marginLeft="132dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginEnd="128dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/imageView1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.439"
         app:srcCompat="@drawable/logo" />
 
     <Button
         android:id="@+id/btn_search"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="208dp"
         android:background="@drawable/button_round"
         android:text="검색"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.436"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -66,15 +71,14 @@
         android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:background="#00ff0000"
         android:text="로그아웃"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <Button
         android:id="@+id/btn_setting"
