@@ -245,7 +245,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     class JobViewHolder extends RecyclerView.ViewHolder {
-        TextView textView1, textView2, textView3, textView4, textView5, textView6;
+        TextView textView1, textView2, textView3, textView4, textView5, textView6, textView1_1, textView8, textView9, textView10, textView11, textView12;
         CheckBox checkBox;
         Button detailButton;
         JobViewHolder(View itemView) {
@@ -256,8 +256,15 @@ public class SearchActivity extends AppCompatActivity {
             textView4 = itemView.findViewById(R.id.textView4);
             textView5 = itemView.findViewById(R.id.textView5);
             textView6 = itemView.findViewById(R.id.textView6);
+            textView1_1 = itemView.findViewById(R.id.textView11);
+            textView8 = itemView.findViewById(R.id.textView21);
+            textView9 = itemView.findViewById(R.id.textView31);
+            textView10 = itemView.findViewById(R.id.textView41);
+            textView11 = itemView.findViewById(R.id.textView51);
+            textView12 = itemView.findViewById(R.id.textView61);
             checkBox = itemView.findViewById(R.id.checkBox);
             detailButton = itemView.findViewById(R.id.detailButton);
+
         }
     }
     public static class JobData implements Serializable {
@@ -410,12 +417,18 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
-            holder.textView1.setText("회사명 : " + job.getData()[0]);
-            holder.textView2.setText("직종 업무 : " + job.getData()[1]);
-            holder.textView3.setText("계약 구분 : " + job.getData()[2]);
-            holder.textView4.setText("주소 : " + job.getData()[3]);
-            holder.textView5.setText("시작일자 : " + job.getData()[4]);
-            holder.textView6.setText("마감일자 : " + job.getData()[5]);
+            holder.textView1.setText("회사명 ");
+            holder.textView1_1.setText(job.getData()[0]);
+            holder.textView2.setText("직종 업무 ");
+            holder.textView8.setText(job.getData()[1]);
+            holder.textView3.setText("계약 구분 ");
+            holder.textView9.setText(job.getData()[2]);
+            holder.textView4.setText("주소 ");
+            holder.textView10.setText(job.getData()[3]);
+            holder.textView5.setText("시작일자 ");
+            holder.textView11.setText(job.getData()[4]);
+            holder.textView6.setText("마감일자 ");
+            holder.textView12.setText(job.getData()[5]);
             // 1. 기존 리스너 제거
             holder.checkBox.setOnCheckedChangeListener(null);
 
