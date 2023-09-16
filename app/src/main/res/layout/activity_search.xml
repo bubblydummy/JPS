@@ -8,6 +8,7 @@
     app:umanoPanelHeight="5dp"
     app:umanoShadowHeight="4dp"
     android:gravity="top"
+    android:background="@drawable/bg_ground"
     app:umanoDragView="@+id/dragHandle">
 
     <!-- Main Content -->
