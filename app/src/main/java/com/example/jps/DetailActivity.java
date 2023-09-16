@@ -39,40 +39,40 @@ public class DetailActivity extends AppCompatActivity {
 
         // 주소
         TextView TextView_addr = findViewById(R.id.textView_addr);
-        TextView_addr.setText("주소 : " + jobdata.getData()[3]);
+        TextView_addr.setText(jobdata.getData()[3]);
 
         // 기업 형태
         TextView TextView_type = findViewById(R.id.textView_type);
-        TextView_type.setText("기업 형태 : " + jobdata.getData()[12]);
+        TextView_type.setText(jobdata.getData()[12]);
 
         // 연락처
         TextView TextView_phone = findViewById(R.id.textView_phone);
-        TextView_phone.setText("연락처 : " + jobdata.getData()[13]);
+        TextView_phone.setText(jobdata.getData()[13]);
 
 
         // 요구 경력
         TextView TextView_carrer = findViewById(R.id.textView_carrer);
-        TextView_carrer.setText("요구 경력 : " + jobdata.getData()[6]);
+        TextView_carrer.setText(jobdata.getData()[6]);
 
         // 학력
         TextView TextView_edu = findViewById(R.id.textView_edu);
-        TextView_edu.setText("요구 학력 : " + jobdata.getData()[7]);
+        TextView_edu.setText(jobdata.getData()[7]);
 
         // 담당 기관
         TextView TextView_dam = findViewById(R.id.textView_damdang);
-        TextView_dam.setText("담당 기관 : " + jobdata.getData()[14]);
+        TextView_dam.setText(jobdata.getData()[14]);
 
         // 인증
         TextView TextView_in = findViewById(R.id.textView_in);
-        TextView_in.setText("인증 구분 : " + jobdata.getData()[8]);
+        TextView_in.setText(jobdata.getData()[8]);
 
         // 등급
         TextView TextView_rate = findViewById(R.id.textView_rate);
-        TextView_rate.setText("등급 : " + jobdata.getData()[15]);
+        TextView_rate.setText(jobdata.getData()[15]);
 
         // 시작-종료
         TextView TextView_startend = findViewById(R.id.textView_startend);
-        TextView_startend.setText("시작~종료 일자 : " + jobdata.getData()[4] + " ~ " + jobdata.getData()[5]);
+        TextView_startend.setText(jobdata.getData()[4] + " ~ " + jobdata.getData()[5]);
 
 
         //-----------<구글맵 버튼> btn_google_map
