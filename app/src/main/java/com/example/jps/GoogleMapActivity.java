@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,20 +74,13 @@ public class GoogleMapActivity extends AppCompatActivity  {
     private FragmentManager fragmentManager;
     private MapFragment mapFragment;
 
-    //도착지 정보
-    private EditText etaddr;
-    private Button convertbtn;
-    private EditText et_result;
 
-    //내위치 정보
-    private Button btn_mypos;
-    private TextView txt_result;
-
-
+    private String my_result;
+    private String company_result;
     //길찾기 정보
-    private Button btn_find;
+    private ImageView btn_find;
 
-
+    private List<ScrapModel> scrapModelList = new ArrayList<>();
 
 
     //도착지, 내위치 정보 초기화
@@ -97,10 +91,6 @@ public class GoogleMapActivity extends AppCompatActivity  {
     //원
     private MapCircle circle;
 
-
-    //스크랩정보
-    private FirebaseAuth auth;
-    private List<ScrapModel> scrapModelList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,8 +107,6 @@ public class GoogleMapActivity extends AppCompatActivity  {
         new GoogleMapActivity.ReadCSVFileTask().execute("boji_daegu.csv");
 
 
-
-
         //------------------<해시값 받아오기(로그로 확인가능)
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
@@ -133,18 +121,6 @@ public class GoogleMapActivity extends AppCompatActivity  {
                 NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
-        etaddr = findViewById(R.id.et_addr);
-        convertbtn = findViewById(R.id.btn_view);
-
-        et_result = findViewById(R.id.et_result);
-
-
-
-        Intent intent = getIntent();
-        String message = intent.getStringExtra("address");
-        etaddr.setText(message);
-
 
 
         //---------<activity_search와 어뎁터간의 연결>---------
@@ -177,146 +153,124 @@ public class GoogleMapActivity extends AppCompatActivity  {
 
 
 
-        //-----------------<도착지 정보를 지오코딩(주소를 위도와 경도로 변환)
-        convertbtn.setOnClickListener(v -> {
-            String addressInput = etaddr.getText().toString();
-
-            String companyInput= intent.getStringExtra("company");
-
-            if (!addressInput.isEmpty()) {
-                destination = GeoCoding(addressInput);
-
-                //지도이동+ 마커 표시
-                moveCameraToLocation(mapView, destination.get(0), destination.get(1));
-                addMarker(mapView, destination.get(0), destination.get(1),companyInput, addressInput);
 
 
-
-
-                // 원의 반경과 중심 좌표 설정
-                int circleRadius = 1000; // 원의 반경 (미터)
-                MapPoint centerMapPoint = MapPoint.mapPointWithGeoCoord(destination.get(0), destination.get(1)); // 중심 좌표
-                int circleStrokeColor = ContextCompat.getColor(this, R.color.circleStrokeColor);
-
-                // 원 생성 및 지도에 추가
-                circle = new MapCircle(centerMapPoint, circleRadius,circleStrokeColor,circleStrokeColor);
-                mapView.addCircle(circle);
-
-                double kmToDegrees = (1.0 / 111.0)/ Math.sqrt(2);
-
-
-                // 원의 반경 내에 있는 데이터베이스 정보를 가져와 출력
-                double minLat = destination.get(0) - kmToDegrees;
-                double maxLat = destination.get(0) + kmToDegrees;
-                double minLng = destination.get(1) -kmToDegrees / Math.cos(Math.toRadians(destination.get(0)));
-                double maxLng = destination.get(1) + kmToDegrees / Math.cos(Math.toRadians(destination.get(0)));
-
-
-
-
-                Log.d("Circle Range", "Min Latitude: " + minLat);
-                Log.d("Circle Range", "Max Latitude: " + maxLat);
-                Log.d("Circle Range", "Min Longitude: " + minLng);
-                Log.d("Circle Range", "Max Longitude: " + maxLng);
-
-
-                // BojiDao 인스턴스 생성
-                BojiDao bojiDao = BojiDatabase.getInstance(getApplicationContext()).bojiDao();
-
-                // 원의 반경 내에 있는 데이터베이스 정보를 쿼리//비동기처리 시켜야함
-                BojiAsyncTask bojiAsyncTask = new BojiAsyncTask(bojiDao, minLat, maxLat, minLng, maxLng,mapView);
-                bojiAsyncTask.execute();
-
-
-            } else {
-                et_result.setText("정보를 입력하세요");
-            }
-        });
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("address");
 
 
 
 
 
-        btn_mypos = (Button)findViewById(R.id.btn_mypos);
-        txt_result = (TextView)findViewById(R.id.txt_result);
+        //-----------------<회사 위치 정보, 복지시설 정보 띄우기>
+        String addressInput = message;
+
+        String companyInput= intent.getStringExtra("company");
+
+        if (!addressInput.isEmpty()) {
+            destination = GeoCoding(addressInput);
+
+            //지도이동+ 마커 표시
+            moveCameraToLocation(mapView, destination.get(0), destination.get(1));
+            addMarker(mapView, destination.get(0), destination.get(1),companyInput, addressInput);
+
+
+            // 원의 반경과 중심 좌표 설정
+            int circleRadius = 1000; // 원의 반경 (미터)
+            MapPoint centerMapPoint = MapPoint.mapPointWithGeoCoord(destination.get(0), destination.get(1)); // 중심 좌표
+            int circleStrokeColor = ContextCompat.getColor(this, R.color.circleStrokeColor);
+
+            // 원 생성 및 지도에 추가
+            circle = new MapCircle(centerMapPoint, circleRadius,circleStrokeColor,circleStrokeColor);
+            mapView.addCircle(circle);
+
+            double kmToDegrees = (1.0 / 111.0)/ Math.sqrt(2);
+
+
+            // 원의 반경 내에 있는 데이터베이스 정보를 가져와 출력
+            double minLat = destination.get(0) - kmToDegrees;
+            double maxLat = destination.get(0) + kmToDegrees;
+            double minLng = destination.get(1) -kmToDegrees / Math.cos(Math.toRadians(destination.get(0)));
+            double maxLng = destination.get(1) + kmToDegrees / Math.cos(Math.toRadians(destination.get(0)));
+
+
+            //로그로 반경 위치 정보 확인
+            Log.d("Circle Range", "Min Latitude: " + minLat);
+            Log.d("Circle Range", "Max Latitude: " + maxLat);
+            Log.d("Circle Range", "Min Longitude: " + minLng);
+            Log.d("Circle Range", "Max Longitude: " + maxLng);
+
+
+            // BojiDao 인스턴스 생성
+            BojiDao bojiDao = BojiDatabase.getInstance(getApplicationContext()).bojiDao();
+
+            // 원의 반경 내에 있는 데이터베이스 정보를 쿼리//비동기처리 시켜야함
+            BojiAsyncTask bojiAsyncTask = new BojiAsyncTask(bojiDao, minLat, maxLat, minLng, maxLng,mapView);
+            bojiAsyncTask.execute();
+
+
+        } else {
+
+        }
+
+
 
         final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         //-------------------------<내위치 정보받아오기
-        btn_mypos.setOnClickListener(new View.OnClickListener() {
+        if ( Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions( GoogleMapActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
+                    0 );
+        }
+        else{
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            double altitude = location.getAltitude();
+
+
+            // 더블형 데이터 추가
+            my_position.add(latitude);
+            my_position.add(longitude);
+
+            my_result = "위도 : " + latitude + "\n" +
+                    "경도 : " + longitude + "\n" +
+                    "고도 : " + altitude;
+
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    1000,
+                    1,
+                    gpsLocationListener);
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    1000,
+                    1,
+                    gpsLocationListener);
+        }
+
+
+
+        //내위치와 도착지 정보가 찾아지면 길찾기(by car)
+        btn_find = findViewById(R.id.btn_find); // R.id.btn_find는 ImageView의 ID입니다.
+
+        btn_find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ( Build.VERSION.SDK_INT >= 23 &&
-                        ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-                    ActivityCompat.requestPermissions( GoogleMapActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
-                            0 );
-                }
-                else{
-                    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    double longitude = location.getLongitude();
-                    double latitude = location.getLatitude();
-                    double altitude = location.getAltitude();
+                if (my_position!=null && destination!=null) {
+                    //길찾기
+
+                    String uri = "kakaomap://route?sp=" + my_position.get(0) + "," + my_position.get(1) +
+                            "&ep=" + destination.get(0) + "," + destination.get(1) +
+                            "&by=TRANSIT";
+                    Toast.makeText(getApplicationContext(), uri, Toast.LENGTH_SHORT).show();
+                    showMap(Uri.parse(uri));
 
 
-
-                    // 더블형 데이터 추가
-                    my_position.add(latitude);
-                    my_position.add(longitude);
-
-
-                    txt_result.setText(
-                            "위도 : " + latitude + "\n" +
-                            "경도 : " + longitude + "\n" +
-                            "고도  : " + altitude);
-
-                    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                            1000,
-                            1,
-                            gpsLocationListener);
-                    lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                            1000,
-                            1,
-                            gpsLocationListener);
+                } else {
+                    Toast.makeText(getApplicationContext(), "위치 정보를 받아오지 못하였습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
-
-
-
-        //다중 경유지 길찾기 시스템 개발 하여 카카오맵과 연동하기
-
-
-        //다중 출발지 길찾기
-
-        //다중 목적지 길찾기
-
-
-        //내위치와 도착지 정보가 찾아지면 길찾기(대중교통용)
-        btn_find=(Button)findViewById(R.id.btn_find);
-        btn_find.setOnClickListener(v -> {
-
-            if (my_position!=null && destination!=null) {
-                //길찾기
-
-                String uri = "kakaomap://route?sp=" + my_position.get(0) + "," + my_position.get(1) +
-                    "&ep=" + destination.get(0) + "," + destination.get(1) +
-                    "&by=TRANSIT";
-                Toast.makeText(getApplicationContext(), uri, Toast.LENGTH_SHORT).show();
-                showMap(Uri.parse(uri));
-
-
-            } else {
-                Toast.makeText(getApplicationContext(), "위치 정보를 받아오지 못하였습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-
-
-
 
 
 
@@ -386,10 +340,9 @@ public class GoogleMapActivity extends AppCompatActivity  {
             double latitude = location.getLatitude();
             double altitude = location.getAltitude();
 
-            txt_result.setText(
-                    "위도 : " + latitude + "\n" +
+            my_result = "위도 : " + latitude + "\n" +
                     "경도 : " + longitude + "\n" +
-                    "고도  : " + altitude);
+                    "고도 : " + altitude;
 
         }
 
@@ -418,9 +371,9 @@ public class GoogleMapActivity extends AppCompatActivity  {
                 doubleList.add(lat);
                 doubleList.add(lon);
 
-                //et_result에 표시
-                String latLonText = "위도: " + lat + "경도: " + lon;
-                et_result.setText(latLonText);
+                //회사 정보
+                company_result= "위도: " + lat + "경도: " + lon;
+
 
                 //리스트 반환
                 return doubleList;
@@ -428,7 +381,7 @@ public class GoogleMapActivity extends AppCompatActivity  {
 
 
             } else {
-                et_result.setText("올바른 정보를 입력하시오");
+                company_result= "정보 없음";
 
             }
         } catch (IOException e) {

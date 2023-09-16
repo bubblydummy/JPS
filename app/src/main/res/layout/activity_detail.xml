@@ -19,6 +19,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
+
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="108dp"
@@ -32,13 +35,11 @@
 
     <TextView
         android:id="@+id/textView_1"
-        style="@drawable/rectangle_style"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/rectangle_style"
         android:text="TextView"
         android:textAlignment="viewStart"
         android:textSize="16sp"
@@ -308,6 +309,7 @@
     </TableLayout>
 
     <TableLayout
+        android:id="@+id/tableLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
@@ -326,8 +328,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle_line"
-                android:text="담당기관"
-                android:padding = "4dp"/>
+                android:padding="4dp"
+                android:text="담당기관" />
 
             <TextView
                 android:id="@+id/textView_damdang"
@@ -345,8 +347,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle_line"
-                android:text="인증구분"
-                android:padding = "4dp"/>
+                android:padding="4dp"
+                android:text="인증구분" />
 
             <TextView
                 android:id="@+id/textView_in"
@@ -364,8 +366,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle_line"
-                android:text="등급"
-                android:padding = "4dp"/>
+                android:padding="4dp"
+                android:text="등급" />
 
             <TextView
                 android:id="@+id/textView_rate"
