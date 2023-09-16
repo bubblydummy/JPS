@@ -72,11 +72,10 @@
             android:id="@+id/part_time_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="97dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="100dp"
             android:text="시간제"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/contract_checkbox"
             app:layout_constraintStart_toEndOf="@id/employment_type_textView"
             app:layout_constraintTop_toTopOf="@+id/search_conditions_layout" />
 
@@ -84,11 +83,10 @@
             android:id="@+id/contract_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="97dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="100dp"
             android:text="계약제"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/permanent_checkbox"
             app:layout_constraintStart_toEndOf="@+id/part_time_checkbox"
             app:layout_constraintTop_toTopOf="@+id/search_conditions_layout" />
 
@@ -96,11 +94,10 @@
             android:id="@+id/permanent_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="97dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="100dp"
             android:text="상용직"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/contract_checkbox"
             app:layout_constraintTop_toTopOf="@+id/search_conditions_layout" />
 
@@ -119,11 +116,10 @@
             android:id="@+id/gyung_checkbox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="149dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="148dp"
             android:text="1년이하"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/gyung_checkbox2"
             app:layout_constraintStart_toEndOf="@+id/gyung"
             app:layout_constraintTop_toTopOf="@+id/search_conditions_layout" />
 
@@ -135,7 +131,6 @@
             android:layout_marginTop="148dp"
             android:text="1년"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/gyung_checkbox3"
             app:layout_constraintStart_toEndOf="@+id/gyung_checkbox1"
             app:layout_constraintTop_toTopOf="@+id/search_conditions_layout" />
 
@@ -143,11 +138,10 @@
             android:id="@+id/gyung_checkbox3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="149dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="148dp"
             android:text="2년"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/gyung_checkbox2"
             app:layout_constraintTop_toTopOf="@+id/search_conditions_layout" />
 
@@ -159,7 +153,6 @@
             android:layout_marginTop="40dp"
             android:text="3년"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/gyung_checkbox5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/gyung_checkbox1" />
 
@@ -167,7 +160,7 @@
             android:id="@+id/gyung_checkbox5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="40dp"
             android:text="4년"
             android:textColor="@color/black"
@@ -178,7 +171,7 @@
             android:id="@+id/gyung_checkbox6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="40dp"
             android:text="5년이상"
             android:textColor="@color/black"
