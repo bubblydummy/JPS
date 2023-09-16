@@ -17,9 +17,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_conditions_layout"
         android:layout_width="416dp"
@@ -204,8 +201,8 @@
             android:id="@+id/school_checkbox2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="52dp"
             android:text="고졸"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/school_checkbox1"
@@ -230,6 +227,7 @@
             android:layout_marginTop="50dp"
             android:text="대졸"
             android:textColor="@color/black"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/school_checkbox3"
             app:layout_constraintTop_toTopOf="@+id/gyung_checkbox6" />
 
